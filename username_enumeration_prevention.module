@@ -22,16 +22,6 @@ function username_enumeration_prevention_install() {
 }
 
 /**
- * Implements hook_menu_alter().
- *
- * Disable the callback for the views module when users don't have access user
- * profiles permission.
- */
-function username_enumeration_prevention_menu_alter(&$items) {
-  $items['admin/views/ajax/autocomplete/user']['access arguments'] = array('access user profiles');
-}
-
-/**
  * Implements hook_form_alter().
  *
  * Checks for the user password reset form and changes the validate and submit
