@@ -4,3 +4,15 @@
  * @file
  * Install file for the Username Enumeration Prevention module.
  */
+
+/**
+ * Implements hook_install().
+ *
+ * Check to see if any callbacks are enabled for anonymous users and warn user.
+ */
+function username_enumeration_prevention_install() {
+  $roles = user_roles(FALSE, 'access user profiles');
+  if (isset($roles['anonymous'])) {
+    drupal_set_message(t('WARNING! You have anonymous users set up with the permission to access user profiles. This is a security risk because it allows users that are not logged into the system to obtain usernames using callbacks. You can read more about this in the module README or at the project page.'), 'warning');
+  }
+}
