@@ -9,6 +9,8 @@
  * only for users with the access user profiles permission.
  */
 
+use \Drupal\user\Entity\User;
+
 /**
  * Implements hook_form_alter().
  *
@@ -29,18 +31,18 @@ function username_enumeration_prevention_form_alter(&$form, &$form_state, $form_
  * Overrides user_pass_validate() found in user.pages.inc.
  */
 function username_enumeration_prevention_pass_validate($form, &$form_state) {
-  $name = trim($form_state['values']['name']);
+  $name = trim($form_state->getValue('name'));
+
   // Try to load by email.
-  $users = user_load_multiple(array(), array('mail' => $name, 'status' => '1'));
-  $account = reset($users);
-  if (!$account) {
+  $account = user_load_by_mail($name);
+
+  if (empty($account)) {
     // No success, try to load by name.
-    $users = user_load_multiple(array(), array('name' => $name, 'status' => '1'));
-    $account = reset($users);
+    $account = user_load_by_name($name);
   }
 
-  if (isset($account->uid)) {
-    form_set_value(array('#parents' => array('account')), $account, $form_state);
+  if ($account && $account->id()) {
+    $form_state->setValueForElement(array('#parents' => array('account')), $account);
   }
   else {
     // Reuse the 'send email' message if a value was entered in form.
@@ -54,14 +56,16 @@ function username_enumeration_prevention_pass_validate($form, &$form_state) {
  * Overrides the user_pass_submit() found in user.pages.inc.
  */
 function username_enumeration_prevention_pass_submit($form, &$form_state) {
-  if (isset($form_state['values']['account'])) {
-    global $language;
-    $account = $form_state['values']['account'];
+  $account = $form_state->getValue('account');
+  if (isset($account)) {
+    $langcode = $this->languageManager->getCurrentLanguage()->getId();
 
     // Mail one time login URL and instructions using current language.
-    _user_mail_notify('password_reset', $account, $language);
-    watchdog('user', 'Password reset instructions mailed to %name at %email.', array('%name' => $account->name, '%email' => $account->mail));
+    $mail = _user_mail_notify('password_reset', $account, $langcode);
+    if (!empty($mail)) {
+      \Drupal::logger('username_enumeration_prevention')->notice('Password reset instructions mailed to %name at %email.', array('%name' => $account->getUsername(), '%email' => $account->getEmail()));
+    }
     drupal_set_message(t('Further instructions have been sent to your e-mail address.'));
   }
-  $form_state['redirect'] = 'user';
+  $form_state->setRedirect('user.page');
 }
