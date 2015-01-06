@@ -58,7 +58,7 @@ function username_enumeration_prevention_pass_validate($form, &$form_state) {
 function username_enumeration_prevention_pass_submit($form, &$form_state) {
   $account = $form_state->getValue('account');
   if (isset($account)) {
-    $langcode = $this->languageManager->getCurrentLanguage()->getId();
+    $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     // Mail one time login URL and instructions using current language.
     $mail = _user_mail_notify('password_reset', $account, $langcode);
