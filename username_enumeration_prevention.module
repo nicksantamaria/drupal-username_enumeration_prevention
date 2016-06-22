@@ -20,7 +20,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function username_enumeration_prevention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Check to see if form is the reset password form.
-  if (strlen(strstr($form_id, 'user_pass')) > 0) {
+  if ($form_id == 'user_pass') {
     // Override core validate and submit actions.
     $form['#validate'][0] = 'username_enumeration_prevention_pass_validate';
     $form['#submit'][0] = 'username_enumeration_prevention_pass_submit';
