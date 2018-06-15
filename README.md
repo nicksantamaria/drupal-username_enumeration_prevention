@@ -1,5 +1,10 @@
 # Username Enumeration Prevention
 
+| Branch | Build Status |
+| ------ | ------------ |
+| [8.x-1.x](https://www.drupal.org/project/username_enumeration_prevention/releases/8.x-1.x-dev) | [![CircleCI](https://img.shields.io/circleci/project/github/nicksantamaria/drupal-username_enumeration_prevention/8.x-1.x.svg?style=for-the-badge)](https://circleci.com/gh/nicksantamaria/drupal-username_enumeration_prevention/tree/8.x-1.x) |
+| [7.x-1.x](https://www.drupal.org/project/username_enumeration_prevention/releases/7.x-1.x-dev) | [![CircleCI](https://img.shields.io/circleci/project/github/nicksantamaria/drupal-username_enumeration_prevention/7.x-1.x.svg?style=for-the-badge)](https://circleci.com/gh/nicksantamaria/drupal-username_enumeration_prevention/tree/7.x-1.x) |
+
 By default Drupal is very secure (especially Drupal 7+). However, there is a
 way to exploit the system by using a technique called username enumeration.
 Drupal 6, 7, and 8 have this issue, though it is much worse for people using
@@ -11,7 +16,7 @@ usernames on the system are not easy to find out.
 This module provides several additional protections to prevent username
 enumeration.
 
-## Request New Password Validation
+### Request New Password Validation
 
 Attackers can easily find usernames that exist by using the forgot password
 form and a technique called "username enumeration". The attacker can enter a
@@ -25,7 +30,7 @@ will be redirected back to the login form. If the user does not exist, no
 password reset email will be sent, but the attacker will not know this is the
 case.
 
-## Access User Profiles Permission
+### Access User Profiles Permission
 
 If a user belongs to a role that has "access user profiles" permission granted
 to it, then that user can serially visit all integers at the URL
@@ -40,7 +45,7 @@ Installing this module on a site will notify site administrators whether this
 issue is present or not, via the Status Report page (Home » Administration »
 Reports » Status report).
 
-## Other
+### Other
 
 Note: There may be other places where usernames could be exposed that this
 module may not know about. Examples are the "submitted by" information on nodes
@@ -48,8 +53,28 @@ or comments, views, exposed filters or by other contributed modules. Users
 looking to hide the usernames from comments and nodes should look at using
 realname or some other tool.
 
-## Installing Username Enumeration Prevention:
+## Get Started
 
-Place the entirety of this directory in
-modules/contrib/username_enumeration_prevention. Navigate to Administer >>
-Extend. Enable Username Enumeration Prevention.
+### Composer
+
+* Add the project to your project's composer dependencies.
+    ```sh
+    composer require "drupal/username_enumeration_prevention"
+    ```
+* Navigate to **Administer >> Extend**.
+* Enable Username Enumeration Prevention.
+
+### Manual
+
+* Place the entirety of the module directory in
+modules/contrib/username_enumeration_prevention.
+* Navigate to **Administer >> Extend**.
+* Enable Username Enumeration Prevention.
+
+## Contribute
+
+Development of this module takes place on [GitHub](https://github.com/nicksantamaria/drupal-username_enumeration_prevention).
+
+* If you encounter issues, please [search the backlog](https://github.com/nicksantamaria/drupal-username_enumeration_prevention/issues).
+* Please [create issues](https://github.com/nicksantamaria/drupal-username_enumeration_prevention/issues/new?labels=bug) and [feature requests](https://github.com/nicksantamaria/drupal-username_enumeration_prevention/issues/new?labels=enhancement) in GitHub.
+* Even better, feel free to fork this repo and [make pull requests](https://github.com/nicksantamaria/drupal-username_enumeration_prevention/compare).
