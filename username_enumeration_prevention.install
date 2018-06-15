@@ -21,6 +21,7 @@ function username_enumeration_prevention_requirements() {
   }
   else {
     $value = t('Anonymous users do not have permission to access user profiles.');
+    $severity = REQUIREMENT_OK;
   }
 
   $url = Url::fromUri('http://drupal.org/project/username_enumeration_prevention');
