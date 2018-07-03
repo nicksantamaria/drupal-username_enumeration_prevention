@@ -41,7 +41,7 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
     $account = user_load_by_name($name);
   }
 
-  if ($account && $account->id()) {
+  if ($account && $account->id() && $account->isActive()) {
     $form_state->setValueForElement(array('#parents' => array('account')), $account);
   }
   else {
