@@ -7,13 +7,13 @@
  * Checks if the requirements are met when enabling the module.
  */
 
-use \Drupal\Core\Url;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_requirements().
  */
 function username_enumeration_prevention_requirements() {
-  $requirements = array();
+  $requirements = [];
   $username_enumeration_prevention_roles = user_roles(FALSE, 'access user profiles');
   if (isset($username_enumeration_prevention_roles['anonymous'])) {
     $value = t('WARNING! Anonymous users have permission to access user profiles.');
@@ -25,7 +25,7 @@ function username_enumeration_prevention_requirements() {
   }
 
   $url = Url::fromUri('http://drupal.org/project/username_enumeration_prevention');
-  $requirements['username_enumeration_prevention_via_permissions'] = array(
+  $requirements['username_enumeration_prevention_via_permissions'] = [
     'title' => t('Username enumeration prevention'),
     'value' => $value,
     'description' => t('Granting anonymous users permission to access user
@@ -33,7 +33,7 @@ function username_enumeration_prevention_requirements() {
     into the site to obtain usernames. More information is available in the
     module README or on the <a href=":url">@link_text</a>', [':url' => $url->toString(), '@link_text' => 'project page']),
     'severity' => $severity,
-  );
+  ];
 
   return $requirements;
 }
