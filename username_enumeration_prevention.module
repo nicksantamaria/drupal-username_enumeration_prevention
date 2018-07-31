@@ -45,10 +45,7 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
     $form_state->setValueForElement(array('#parents' => array('account')), $account);
   }
   else {
-    // Reuse the 'send email' message if a value was entered in form.
-    if ($name != '') {
-      drupal_set_message(t('Further instructions have been sent to your e-mail address.'));
-    }
+    \Drupal::logger('username_enumeration_prevention')->notice('Blocked user attempting to reset password.');
   }
 }
 
@@ -65,7 +62,8 @@ function username_enumeration_prevention_pass_submit($form, FormStateInterface $
     if (!empty($mail)) {
       \Drupal::logger('username_enumeration_prevention')->notice('Password reset instructions mailed to %name at %email.', array('%name' => $account->getUsername(), '%email' => $account->getEmail()));
     }
-    drupal_set_message(t('Further instructions have been sent to your e-mail address.'));
   }
+
+  drupal_set_message(t('Further instructions have been sent to your e-mail address.'));
   $form_state->setRedirect('user.page');
 }
