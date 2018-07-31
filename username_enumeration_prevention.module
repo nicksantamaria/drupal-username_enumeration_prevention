@@ -12,19 +12,16 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  *
  * Checks for the user password reset form and changes the validate and submit
  * functions. Uses the overridden functions defined in this module instead of
  * Drupal cores.
  */
-function username_enumeration_prevention_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check to see if form is the reset password form.
-  if ($form_id == 'user_pass') {
-    // Override core validate and submit actions.
-    $form['#validate'][0] = 'username_enumeration_prevention_pass_validate';
-    $form['#submit'][0] = 'username_enumeration_prevention_pass_submit';
-  }
+function username_enumeration_prevention_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Override core validate and submit actions.
+  $form['#validate'][0] = 'username_enumeration_prevention_pass_validate';
+  $form['#submit'][0] = 'username_enumeration_prevention_pass_submit';
 }
 
 /**
