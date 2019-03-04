@@ -27,6 +27,10 @@ Enabling this module is one step to preventing the usernames on the system from 
 * "submitted by" information on nodes or comments, views, exposed filters or by other contributed modules can also expose usernames. Site builders looking to hide usernames from comments and nodes should look at using realname or some other tool.
 * Browser autocompletion on the user login page can be disabled using the [Security Kit](https://www.drupal.org/project/seckit) module.
 
+### Core Issue
+
+Anyone looking to contribute to this project should first review the [core issue](https://www.drupal.org/project/drupal/issues/1521996) and see if there is any way they can help push that forward.
+
 ## Get Started
 
 ### Composer
