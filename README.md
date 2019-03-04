@@ -21,10 +21,11 @@ Username enumeration is a technique used by malicious actors to identify valid u
 
 ## Additional Notes
 
-Enabling this module is one step to preventing the usernames on the system from being found out but there are other known methods that are just as easy. 
+Enabling this module is one step to preventing the usernames on the system from being found out but there are other known methods that are just as easy.
 
-* If a user belongs to a role that has "access user profiles" granted to it, then that user can serially visit all integers at the URL http://drupal.org/user/UID and get the username from the loaded profile pages. 
+* If a user belongs to a role that has "access user profiles" granted to it, then that user can serially visit all integers at the URL http://drupal.org/user/UID and get the username from the loaded profile pages.
 * "submitted by" information on nodes or comments, views, exposed filters or by other contributed modules can also expose usernames. Site builders looking to hide usernames from comments and nodes should look at using realname or some other tool.
+* Browser autocompletion on the user login page can be disabled using the [Security Kit](https://www.drupal.org/project/seckit) module.
 
 ## Get Started
 
