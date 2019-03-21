@@ -20,8 +20,14 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function username_enumeration_prevention_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Override core validate and submit actions.
-  $form['#validate'][0] = 'username_enumeration_prevention_pass_validate';
-  $form['#submit'][0] = 'username_enumeration_prevention_pass_submit';
+  $key_validate = array_search('::validateForm', $form['#validate']);
+  if ($key_validate !== FALSE) {
+    $form['#validate'][$key_validate] = 'username_enumeration_prevention_pass_validate';
+  }
+  $key_submit = array_search('::submitForm', $form['#submit']);
+  if ($key_submit !== FALSE) {
+    $form['#submit'][$key_submit] = 'username_enumeration_prevention_pass_submit';
+  }
 }
 
 /**
