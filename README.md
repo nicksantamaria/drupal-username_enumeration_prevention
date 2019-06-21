@@ -26,6 +26,7 @@ Enabling this module is one step to preventing the usernames on the system from 
 * If a user belongs to a role that has "access user profiles" granted to it, then that user can serially visit all integers at the URL http://drupal.org/user/UID and get the username from the loaded profile pages.
 * "submitted by" information on nodes or comments, views, exposed filters or by other contributed modules can also expose usernames. Site builders looking to hide usernames from comments and nodes should look at using realname or some other tool.
 * Browser autocompletion on the user login page can be disabled using the [Security Kit](https://www.drupal.org/project/seckit) module.
+* The Drupal security team [does not consider username enumeration a vulnerability](https://www.drupal.org/drupal-security-team/security-team-procedures/disclosure-of-usernames-and-user-ids-is-not-considered).
 
 ### Core Issue
 
