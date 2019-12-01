@@ -4,4 +4,4 @@ services:
     class: Drupal\username_enumeration_prevention\UserRouteEventSubscriber
     arguments: ['@router.route_provider', '@entity_type.manager']
     tags:
-      - { name: event_subscriber }
+      - name: event_subscriber
