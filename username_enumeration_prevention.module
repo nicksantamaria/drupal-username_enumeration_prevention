@@ -10,7 +10,6 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -29,6 +28,15 @@ function username_enumeration_prevention_form_user_pass_alter(&$form, FormStateI
   if ($key_submit !== FALSE) {
     $form['#submit'][$key_submit] = 'username_enumeration_prevention_pass_submit';
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Ensures usernames are not exposed when spoofing a reset password URL.
+ */
+function username_enumeration_prevention_form_user_pass_reset_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['message'] = ['#markup' => t('<p>This is a one-time login.</p><p>Click on this button to log in to the site and change your password.</p>')];
 }
 
 /**
@@ -69,15 +77,4 @@ function username_enumeration_prevention_pass_submit($form, FormStateInterface $
   }
   \Drupal::messenger()->addMessage(t('Further instructions have been sent to your e-mail address.'));
   $form_state->setRedirect('user.page');
-}
-
-/**
- * Let's override the user name from pw-reset form.
- * By entering any uid in /user/reset/<uid>/1558364581/GMGVHMkyV0I-1XnefRMKrt5gBa2qVq4oOdjLtqCCBqM we could get any name
- *
- * Implements hook_form_FORM_ID_alter().
- */
-function username_enumeration_prevention_form_user_pass_reset_alter(&$form, FormStateInterface $form_state, $form_id)
-{
-    $form['message'] = ['#markup' => t('<p>This is a one-time login.</p><p>Click on this button to log in to the site and change your password.</p>')];
 }
