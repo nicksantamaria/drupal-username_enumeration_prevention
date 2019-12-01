@@ -6,6 +6,8 @@ use Drupal\Tests\BrowserTestBase;
 
 /**
  * Performs integration tests on UserRouteEventSubscriber.
+ *
+ * @group username_enumeration_prevention
  */
 class UserRouteTest extends BrowserTestBase {
 
