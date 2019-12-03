@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\username_enumeration_prevention\Functional;
 
+use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -16,6 +17,13 @@ class UserRouteTest extends BrowserTestBase {
    */
   public function testCanonicalRoute() {
     $this->drupalGet(Url::fromRoute('entity.user.canonical'));
+    $this->assertSession()->statusCodeEquals(404);
+
+    $this->drupalGet(Url::fromRoute('user.cancel_confirm', [
+      'user'  => '1',
+      'timestamp' => 0,
+      'hashed_pass' => 'foo',
+    ]));
     $this->assertSession()->statusCodeEquals(404);
   }
 
