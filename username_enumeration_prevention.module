@@ -31,6 +31,15 @@ function username_enumeration_prevention_form_user_pass_alter(&$form, FormStateI
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Ensures usernames are not exposed when spoofing a reset password URL.
+ */
+function username_enumeration_prevention_form_user_pass_reset_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['message'] = ['#markup' => t('<p>This is a one-time login.</p><p>Click on this button to log in to the site and change your password.</p>')];
+}
+
+/**
  * Overrides user_pass_validate() found in user.pages.inc.
  */
 function username_enumeration_prevention_pass_validate($form, FormStateInterface $form_state) {
