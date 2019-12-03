@@ -3,6 +3,7 @@
 namespace Drupal\username_enumeration_prevention;
 
 use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @package Drupal\username_enumeration_prevention
  */
-class UserRouteEventSubscriber extends EventSubscriberInterface {
+class UserRouteEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Route provider.
@@ -47,7 +48,7 @@ class UserRouteEventSubscriber extends EventSubscriberInterface {
       ->getLinkTemplates();
 
     // @todo Cache the result of this variable somewhere.
-    $userRouteIds = [];
+    $userRouteIds = ['user.cancel_confirm'];
     foreach ($userLinkTemplates as $path) {
       $routes = $this->routeProvider->getRoutesByPattern($path);
       $userRouteIds = array_merge($userRouteIds, array_keys($routes->all()));
