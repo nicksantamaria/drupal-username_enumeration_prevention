@@ -75,6 +75,6 @@ function username_enumeration_prevention_pass_submit($form, FormStateInterface $
       \Drupal::logger('username_enumeration_prevention')->notice('Password reset instructions mailed to %name at %email.', ['%name' => $account->getUsername(), '%email' => $account->getEmail()]);
     }
   }
-  \Drupal::messenger()->addMessage(t('Further instructions have been sent to your e-mail address.'));
+  \Drupal::messenger()->addMessage(t('If the username or email address exists and is active, further instructions have been sent to your email address.'));
   $form_state->setRedirect('user.page');
 }
