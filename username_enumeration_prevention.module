@@ -19,11 +19,10 @@ use Drupal\Core\Form\FormStateInterface;
  * Drupal cores.
  */
 function username_enumeration_prevention_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Override core validate and submit actions.
-  $key_validate = array_search('::validateForm', $form['#validate']);
-  if ($key_validate !== FALSE) {
-    $form['#validate'][$key_validate] = 'username_enumeration_prevention_pass_validate';
-  }
+  // Add our own validate
+  $form['#validate'][] = 'username_enumeration_prevention_pass_validate';
+
+  // Override core submit actions.
   $key_submit = array_search('::submitForm', $form['#submit']);
   if ($key_submit !== FALSE) {
     $form['#submit'][$key_submit] = 'username_enumeration_prevention_pass_submit';
@@ -59,6 +58,10 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
   else {
     \Drupal::logger('username_enumeration_prevention')->notice('Blocked user attempting to reset password.');
   }
+
+  $form_state->set('username_enumeration_prevention_blocked', !empty($form_state->getErrors()));
+  // don't show errors
+  $form_state->clearErrors();
 }
 
 /**
@@ -66,7 +69,7 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
  */
 function username_enumeration_prevention_pass_submit($form, FormStateInterface $form_state) {
   $account = $form_state->getValue('account');
-  if (isset($account)) {
+  if (isset($account) && !$form_state->get('username_enumeration_prevention_blocked')) {
     $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
     // Mail one time login URL and instructions using current language.
