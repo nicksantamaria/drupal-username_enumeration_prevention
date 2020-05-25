@@ -60,7 +60,7 @@ class UserRouteTest extends BrowserTestBase {
       ['contact'],
     ];
 
-    // shortcut.module
+    // shortcut.module.
     $scenarios['user shortcut list'] = ['shortcut.set_switch'];
 
     $data = [];
