@@ -104,6 +104,7 @@ class UserRouteEventSubscriber implements EventSubscriberInterface {
     }));
 
     $userRouteIds[] = 'user.cancel_confirm';
+    $userRouteIds[] = 'shortcut.set_switch';
     $this->cache->set(static::ROUTE_CID, $userRouteIds, Cache::PERMANENT, ['routes']);
     return $userRouteIds;
   }
