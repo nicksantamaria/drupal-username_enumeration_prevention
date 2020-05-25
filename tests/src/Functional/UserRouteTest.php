@@ -15,7 +15,7 @@ class UserRouteTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['user'];
+  public static $modules = ['user', 'shortcut'];
 
   /**
    * Tests user routes.
@@ -59,6 +59,9 @@ class UserRouteTest extends BrowserTestBase {
       [],
       ['contact'],
     ];
+
+    // shortcut.module
+    $scenarios['user shortcut list'] = ['shortcut.set_switch'];
 
     $data = [];
     foreach ($scenarios as $key => $scenario) {
