@@ -60,9 +60,6 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
   }
 
   $form_state->set('username_enumeration_prevention_blocked', !empty($form_state->getErrors()));
-
-  // Clear errors so they are not displayed to the end-user.
-  $form_state->clearErrors();
 }
 
 /**
