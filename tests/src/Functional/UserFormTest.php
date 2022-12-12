@@ -17,7 +17,7 @@ class UserFormTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['username_enumeration_prevention'];
+  protected static $modules = ['username_enumeration_prevention'];
 
   /**
    * Asserts messages on various anonymous forms dont include usernames.
