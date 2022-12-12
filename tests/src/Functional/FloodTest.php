@@ -14,6 +14,11 @@ use Drupal\Tests\user\Traits\UserCreationTrait;
  */
 class FloodTest extends PageCacheTagsTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   use AssertMailTrait {
     getMails as drupalGetMails;
   }
