@@ -52,6 +52,7 @@ function username_enumeration_prevention_pass_validate($form, FormStateInterface
     $account = user_load_by_name($name);
   }
 
+  /** @var \Drupal\user\UserInterface $account */
   if ($account && $account->id() && $account->isActive()) {
     $form_state->setValueForElement(['#parents' => ['account']], $account);
   }
