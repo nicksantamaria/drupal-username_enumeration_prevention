@@ -15,7 +15,12 @@ class UserRouteTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['user', 'shortcut'];
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['user', 'shortcut'];
 
   /**
    * Tests user routes.

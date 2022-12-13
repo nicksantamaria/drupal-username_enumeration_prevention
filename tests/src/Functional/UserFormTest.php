@@ -13,11 +13,16 @@ use Drupal\Tests\BrowserTestBase;
 class UserFormTest extends BrowserTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Modules to enable.
    *
    * @var array
    */
-  public static $modules = ['username_enumeration_prevention'];
+  protected static $modules = ['username_enumeration_prevention'];
 
   /**
    * Asserts messages on various anonymous forms dont include usernames.

@@ -14,6 +14,11 @@ use Drupal\Tests\user\Traits\UserCreationTrait;
  */
 class FloodTest extends PageCacheTagsTestBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   use AssertMailTrait {
     getMails as drupalGetMails;
   }
@@ -27,7 +32,7 @@ class FloodTest extends PageCacheTagsTestBase {
    *
    * @var array
    */
-  public static $modules = ['username_enumeration_prevention'];
+  protected static $modules = ['username_enumeration_prevention'];
 
   /**
    * Tests password reset flood control for one IP.
@@ -44,20 +49,20 @@ class FloodTest extends PageCacheTagsTestBase {
     for ($i = 0; $i < 3; $i++) {
       $this->drupalGet('user/password');
       $edit = ['name' => $name];
-      $this->drupalPostForm(NULL, $edit, $this->t('Submit'));
+      $this->submitForm($edit, $this->t('Submit'));
     }
 
     // The next request should trigger flood control.
     $this->drupalGet('user/password');
     $edit = ['name' => $this->randomMachineName()];
-    $this->drupalPostForm(NULL, $edit, $this->t('Submit'));
+    $this->submitForm($edit, $this->t('Submit'));
 
     // Error should not be displayed to the end user.
-    $this->assertNoText($this->t('Too many password recovery requests from your IP address. It is temporarily blocked. Try again later or contact the site administrator.'));
+    $this->assertSession()->pageTextNotContains($this->t('Too many password recovery requests from your IP address. It is temporarily blocked. Try again later or contact the site administrator.'));
 
     // But mail should be.
     $mail = $this->drupalGetMails();
-    $this->assert(!empty($mail), "password reset mails were sent");
+    $this->assertTrue(!empty($mail), "password reset mails were sent");
   }
 
 }
